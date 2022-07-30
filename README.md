@@ -9,3 +9,7 @@ the .env only stores the token for security reasons as it is not a safe practice
 ### Settings.json
 The settings.json contains small config that isn't extremely insecure.
 The reload boolean in the interaction object is for deleting all interactions and recreating them via the discord api.
+
+## Links
+
+- [Discord](https://discord.gg/y3eQ8wraD5)
