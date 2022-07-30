@@ -1,0 +1,8 @@
+{
+  "prefix": "!",
+  "owners": [],
+  "interactions": {
+    "reload": false,
+    "global": true
+  }
+}
