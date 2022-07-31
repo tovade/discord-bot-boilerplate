@@ -2,7 +2,14 @@
   "prefix": "!",
   "owners": [],
   "interactions": {
+    "enabled": true,
     "reload": false,
-    "global": true
+    "global": false
+  },
+  "ids": {
+    "guildId": "",
+    "channels": {
+      "guild_log": ""
+    }
   }
 }
