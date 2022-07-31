@@ -1,7 +1,6 @@
 import MajoClient from "../Structures/Client";
 import Command from "../Structures/Command";
-import { CommandInteraction, Message, PermissionsBitField } from "discord.js";
-import { ErrorMessages } from "./Messages";
+import { Colors, CommandInteraction, Message, PermissionsBitField } from "discord.js";
 
 export default class CommandParser {
   public client: MajoClient;
@@ -9,9 +8,15 @@ export default class CommandParser {
     this.client = client;
   }
   parseInteraction(interaction: CommandInteraction, cmd: Command) {
-    if (cmd.data.devOnly && !this.client.config.owners.includes(interaction.user.id)) {
+    if (cmd.data.devOnly && !this.client.config?.owners.includes(interaction.user.id)) {
       interaction.reply({
-        content: ErrorMessages.developerOnly,
+        embeds: [
+          {
+            color: Colors.Red,
+            title: "⚠️ Missing Access",
+            description: `${interaction.member}, This command is only available to my developers!`,
+          },
+        ],
       });
       return false;
     }
@@ -19,14 +24,17 @@ export default class CommandParser {
   }
   parse(message: Message, cmd: Command): Boolean {
     if (cmd.data.disabled) {
-      message.channel.send({
-        content: ErrorMessages.disabledCommand,
-      });
       return false;
     }
-    if (cmd.data.devOnly && !this.client.config.owners.includes(message.author.id)) {
+    if (cmd.data.devOnly && !this.client.config?.owners.includes(message.author.id)) {
       message.channel.send({
-        content: ErrorMessages.developerOnly,
+        embeds: [
+          {
+            color: Colors.Red,
+            title: "⚠️ Missing Access",
+            description: `${message.author}, This command is only available to my developers!`,
+          },
+        ],
       });
       return false;
     }
@@ -40,7 +48,17 @@ export default class CommandParser {
       });
       if (neededPermissions[0]) {
         message.channel.send({
-          content: ErrorMessages.missingUserPermissions(neededPermissions),
+          embeds: [
+            {
+              color: Colors.Red,
+              title: "⚠️ Missing Permissions",
+              description: `${
+                message.author
+              }, You must have these permissions to run this command.\n\n${neededPermissions.join(
+                ", ",
+              )}`,
+            },
+          ],
         });
         return false;
       }
@@ -56,7 +74,17 @@ export default class CommandParser {
       });
       if (neededPermissions[0]) {
         message.channel.send({
-          content: ErrorMessages.missingClientPermissions(neededPermissions),
+          embeds: [
+            {
+              color: Colors.Red,
+              title: "⚠️ Missing Permissions",
+              description: `${
+                message.author
+              }, I must have these permissions to run this command.\n\n${neededPermissions.join(
+                ", ",
+              )}`,
+            },
+          ],
         });
         return false;
       }

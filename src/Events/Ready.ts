@@ -10,9 +10,12 @@ export default class ReadyEvent extends Event {
   }
   run() {
     console.log(`${this.client.user?.username} is ready`);
-    this.client.commandHandler.loadInteractions(
-      this.client.config.interactions.global,
-      this.client.config.interactions.reload,
-    );
+    if (this.client.config?.interactions.enabled) {
+      this.client.commandHandler.loadInteractions(
+        this.client.config.interactions.global as boolean,
+        this.client.config.interactions.reload,
+      );
+      console.log("Loaded interactions");
+    }
   }
 }

@@ -20,6 +20,20 @@ export default class InteractionCreateEvent extends Event {
       } catch (e) {
         return interaction.reply({ content: "Something went wrong" });
       }
+    } else if (interaction.isContextMenuCommand()) {
+      const int = [...this.client.interactions.values()].filter(
+        (inter) => inter.options.name === interaction.commandName,
+      );
+      if (!int[0]) return;
+
+      const interact = this.client.interactions.get(int[0].options.name);
+      if (!interact) return;
+
+      try {
+        interact.run(interaction);
+      } catch (e) {
+        return interaction.reply({ content: "Something went wrong" });
+      }
     } else return false;
     return false;
   }

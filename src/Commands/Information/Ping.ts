@@ -11,6 +11,7 @@ export default class PingCommand extends Command {
       interaction: {
         enabled: true,
       },
+      cooldown: 5,
     });
   }
   run(ctx: CommandContext) {

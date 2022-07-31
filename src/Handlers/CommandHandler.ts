@@ -10,6 +10,7 @@ import {
 } from "discord.js";
 import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v10";
+import InteractionHandler from "./InteractionHandler";
 
 export default class CommandHandler {
   private readonly _client!: MajoClient;
@@ -34,25 +35,34 @@ export default class CommandHandler {
       }
     });
   }
-  loadInteractions(global: boolean, reload?: boolean) {
-    const commands = this.getCommands();
-    if (commands.length <= 0) return;
-    if (reload) this.deleteAllApplicationCommands();
+  registerToApi(global: boolean, toRegister: any[]) {
     const rest = new REST({ version: "10" }).setToken(this._client.token as string);
-    global
+    return global
       ? rest
-          .put(Routes.applicationCommands(this._client.user?.id as string), { body: commands })
-          .then(() => console.log("Successfully registered application commands."))
+          .put(Routes.applicationCommands(this._client.user?.id as string), {
+            body: toRegister,
+          })
           .catch(console.error)
       : rest
           .put(
-            Routes.applicationGuildCommands(this._client.user?.id as string, "946079007231836223"),
+            Routes.applicationGuildCommands(
+              this._client.user?.id as string,
+              this._client.config?.ids.guildId as string,
+            ),
             {
-              body: commands,
+              body: toRegister,
             },
           )
-          .then(() => console.log("Successfully registered application commands."))
           .catch(console.error);
+  }
+  loadInteractions(global: boolean, reload?: boolean) {
+    const commands = this.getCommands();
+    if (commands.length <= 0) return;
+    if (reload) {
+      this.deleteAllApplicationCommands();
+    }
+    new InteractionHandler(this._client).init();
+    return this.registerToApi(global, commands);
   }
   getCommands() {
     const groups = [...this._client.commands.values()].map((cmd) => cmd.data.category);
@@ -91,10 +101,11 @@ export default class CommandHandler {
     return ToRegister;
   }
   deleteAllApplicationCommands() {
-    return this._client.application?.commands.fetch().then((cmds) => {
+    this._client.application?.commands.fetch().then((cmds) => {
       for (const cmd of [...cmds.values()]) {
         this._client.application?.commands.delete(cmd.id);
       }
     });
+    return true;
   }
 }
