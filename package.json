@@ -37,7 +37,7 @@
     "discord.js": "^14.1.2",
     "glob": "^7.1.7",
     "moment-duration-format": "^2.3.2",
-    "moment-timezone": "^0.5.34",
+    "moment-timezone": "^0.5.37",
     "path": "^0.12.7"
   }
 }
