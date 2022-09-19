@@ -32,7 +32,7 @@
     "tabWidth": 2
   },
   "dependencies": {
-    "@discordjs/rest": "^1.0.1",
+    "@discordjs/rest": "^1.1.0",
     "discord-api-types": "^0.37.5",
     "discord.js": "^14.1.2",
     "glob": "^7.1.7",
