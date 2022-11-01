@@ -34,7 +34,7 @@
   "dependencies": {
     "@discordjs/rest": "^1.0.1",
     "discord-api-types": "^0.37.5",
-    "discord.js": "^14.1.2",
+    "discord.js": "^14.6.0",
     "glob": "^7.1.7",
     "moment-duration-format": "^2.3.2",
     "moment-timezone": "^0.5.37",
