@@ -27,7 +27,7 @@
         "tsconfig-paths": "^4.2.0"
     },
     "devDependencies": {
-        "@casper124578/eslint-config": "^1.0.0",
+        "@casper124578/eslint-config": "^6.0.0",
         "@types/ms": "^0.7.31",
         "@types/node": "^14.14.10",
         "@types/require-all": "^3.0.3",
