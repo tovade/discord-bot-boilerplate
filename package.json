@@ -17,7 +17,7 @@
     },
     "dependencies": {
         "@oceanicjs/builders": "^1.1.9",
-        "@prisma/client": "^4.15.0",
+        "@prisma/client": "^5.2.0",
         "@sapphire/result": "^2.6.4",
         "moment-duration-format": "^2.3.2",
         "moment-timezone": "^0.5.43",
